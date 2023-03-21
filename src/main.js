@@ -4,7 +4,7 @@ import App from "./App.vue";
 
 import axios from "axios";
 
-import "../dist/assets/css/output.css";
+import "./assets/css/output.css";
 
 const app = createApp(App)
 
