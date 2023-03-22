@@ -18,14 +18,14 @@
       <label for="descInput">Description</label>
       <textarea name="description" id="descInput" />
       <label for="attachInput">Attachments</label>
-      <input type="file" name="attachment" id="attachInput" multiple/>
-      <p class="text-red-700 mb-4"  :class="{ hidden: !errorOccured }">
+      <input type="file" name="attachment" id="attachInput" multiple />
+      <p class="text-red-700 mb-4" :class="{ hidden: !errorOccured }">
         Error! Be sure to check the internet connection and to fill in the Email
         field, and try again.
       </p>
       <span
         class="mx-auto text-red-500 text-lg decoration-red-500 mb-4"
-        :class="{ hidden: !transferring}"
+        :class="{ hidden: !transferring }"
         >Transferring...</span
       >
       <button
@@ -50,7 +50,7 @@ export default {
     return {
       errorOccured: false,
       transferDone: false,
-      transferring: false
+      transferring: false,
     };
   },
   methods: {
