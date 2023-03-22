@@ -32,7 +32,7 @@
         occaecat cupidatat non proident, sunt in culpa qui officia deserunt
         mollit anim id est laborum.
       </p>
-      <nav id="navLinks" class=" flex flex-col items-center md:items-start">
+      <nav id="navLinks" class="flex flex-col items-center md:items-start">
         <a href="/">
           <h3 class="text-2xl font-semibold">HOME</h3>
         </a>
@@ -47,7 +47,10 @@
         </a>
       </nav>
 
-      <div class="flex flex-col items-start gap-1">
+      <div
+        class="flex flex-col items-start gap-1"
+        :class="{ subscribed: subscriptionDone, validated: validated }"
+      >
         <div class="flex w-full items-center" id="emailInputLabel">
           <hr
             class="shrink border-red-500 mr-1 duration-300"
@@ -58,7 +61,7 @@
         </div>
         <input
           type="text"
-          id="emailInput"
+          id="subscriptionInput"
           name="email"
           @input="watchEmailInput($event)"
           class="text-[#d9d9d9] w-full p-1 bg-black focus:border-red-500 border-gray-500 border outline-none"
@@ -83,20 +86,29 @@
             id="emailInputButtonRight"
           />
         </div>
+        <p :class="{ hidden: !subscriptionFailed }" class="text-red-500">
+          Error! Subscription failed. Check the internet connection, and avoid
+          registering duplicate emails.
+        </p>
       </div>
       <div class="h-[500px] md:hidden"></div>
     </div>
   </div>
 </template>
 <script>
+
 export default {
   name: "SideBar",
   data() {
-    return {};
+    return {
+      subscriptionDone: false,
+      subscriptionFailed: false,
+      validated: false,
+    };
   },
   methods: {
     addEmailInputListener() {
-      var emailInput = document.getElementById("emailInput");
+      var emailInput = document.getElementById("subscriptionInput");
       var leftLine = document.getElementById("emailInputLabelLeft");
 
       emailInput.addEventListener("focus", () => {
@@ -118,37 +130,54 @@ export default {
       let input = e.target.value;
 
       if (this.validateEmail(input)) {
+        this.validated = true;
         document.getElementById("emailInputButtonRight").classList.add("grow");
-        document
-          .getElementById("emailSubscribeButton")
-          .classList.add("validated");
         return;
       }
+      this.validated = false;
       document.getElementById("emailInputButtonRight").classList.remove("grow");
-      document
-        .getElementById("emailSubscribeButton")
-        .classList.remove("validated");
     },
-    subscribeClicked(e) {
-      var emailInput = document.getElementById("emailInput");
-      if (!e.target.classList.contains("validated")) {
+    async subscribeClicked() {
+      var emailInput = document.getElementById("subscriptionInput");
+      if (!this.validated) {
         emailInput.classList.add("invalid");
         setTimeout(() => {
           emailInput.classList.remove("invalid");
         }, 300);
         return;
       }
-      emailInput.classList.add("subscribed");
-      document
-        .getElementById("emailSubscribeButton")
-        .classList.add("subscribed");
-      document
-        .getElementById("emailInputButtonRight")
-        .classList.add("subscribed");
-      document
-        .getElementById("emailInputButtonLeft")
-        .classList.add("subscribed");
-      document.getElementById("subscribedMessage").classList.add("subscribed");
+
+      await this.postSubscription();
+    },
+    async postSubscription() {
+      let emailInput = document.getElementById("subscriptionInput");
+      var formData = new FormData();
+
+      let data = {
+        email: emailInput.value,
+      };
+
+      formData.append("data", JSON.stringify(data));
+      console.log(formData)
+      try {
+        await this.$axios.post(
+          `${this.$env.VUE_APP_DB_HOST}/api/subscriptions`,
+          formData
+        );
+
+        this.onSubscriptionSuccess();
+      } catch (err) {
+        console.log(err);
+        this.onSubscriptionFailed();
+      }
+    },
+    onSubscriptionFailed() {
+      this.subscriptionDone = false;
+      this.subscriptionFailed = true;
+    },
+    onSubscriptionSuccess() {
+      this.subscriptionDone = true;
+      this.subscriptionFailed = false;
     },
   },
   mounted() {
@@ -170,42 +199,41 @@ export default {
   color: gray;
 }
 
-.subscribe-button.validated {
+.validated .subscribe-button {
   color: red;
   border-color: red;
 }
 
-.subscribe-button:not(.subscribed).validated:hover {
+.validated .subscribe-button:hover {
   background-color: red;
   color: black;
   transition: 200ms;
 }
 
-.subscribe-button.subscribed {
+.subscribed .subscribe-button {
   display: none;
 }
 
-#emailInput {
+#subscriptionInput {
   overflow: hidden;
   max-height: 300px;
   transition: 300ms;
 }
 
-#emailInput.invalid {
+#subscriptionInput.invalid {
   animation-name: swingEmailInput;
   animation-duration: 0.15s;
   animation-iteration-count: 2;
 }
 
-#emailInput.subscribed {
+.subscribed #subscriptionInput {
   border: none;
   padding: 0;
   max-height: 0;
   opacity: 0;
 }
 
-#emailInputButtonRight.subscribed,
-#emailInputButtonLeft.subscribed {
+.subscribed :is(#emailInputButtonRight, #emailInputButtonLeft) {
   margin: 0;
   flex-grow: 1;
   transition: 300ms;
@@ -223,7 +251,7 @@ export default {
   margin-right: 5px;
 }
 
-#subscribedMessage.subscribed {
+.subscribed #subscribedMessage {
   max-height: 300px;
   opacity: 1;
   transition: 300ms;

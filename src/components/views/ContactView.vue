@@ -85,7 +85,6 @@ export default {
         }
 
         formData.append("data", JSON.stringify(data));
-        console.log(formData);
         try {
           await this.$axios.post(
             `${this.$env.VUE_APP_DB_HOST}/api/contacts`,
