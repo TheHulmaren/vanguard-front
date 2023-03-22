@@ -10,7 +10,7 @@
       >
         <img
           class="img-front absolute top-0 left-0 w-full h-full object-cover bg-white duration-300 ease-in-out"
-          :src="crewData.attributes.profImg.data.attributes.url"
+          :src="crewData.attributes.profImg.data.attributes.formats.small.url"
         />
         <ul
           v-if="crewData.attributes.social"
