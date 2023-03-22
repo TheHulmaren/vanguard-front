@@ -6,7 +6,7 @@
       <div class="w-full min-h-screen grid grid-cols-3">
         <div class="col-span-3 md:col-span-2 flex flex-col">
           <header-section @toggle-sidebar="toggleSidebar" :sidebar-opened="sidebarOpened"/>
-          <main class="grow mt-[110px] md:mt-[150px] p-4 md:p-0">
+          <main class="grow mt-[110px] md:mt-[150px] p-4">
             <router-view></router-view>
           </main>
           <footer-section />

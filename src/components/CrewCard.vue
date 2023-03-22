@@ -1,22 +1,20 @@
 <template>
   <article
     @click="toggleFlip($event)"
-    class="flex flex-col border p-2 gap-2 group border-transparent hover:border-red-500 duration-300 h-full cursor-pointer"
+    :class="{ flipped: isFlipped }"
+    class="flex flex-col border p-2 gap-2 group border-transparent hover:border-red-500 duration-300 h-fit cursor-pointer"
   >
-    <div class="w-full flex gap-2">
+    <div class="w-full flex gap-2 h-36 md:h-48">
       <div
-        class="img-wrapper w-24 h-48 aspect-video relative duration-300"
-        :class="{ flipped: isFlipped }"
+        class="img-wrapper w-24 h-full aspect-video relative overflow-hidden flex-none"
       >
         <img
-          class="img-front absolute top-0 left-0 w-full h-full object-cover bg-white"
-          :src="
-            crewData.attributes.profImg.data.attributes.url
-          "
+          class="img-front absolute top-0 left-0 w-full h-full object-cover bg-white duration-300 ease-in-out"
+          :src="crewData.attributes.profImg.data.attributes.url"
         />
         <ul
           v-if="crewData.attributes.social"
-          class="img-back absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center gap-2 z-30"
+          class="img-back absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center gap-2 -z-10 duration-300 ease-in-out overflow-y-auto"
         >
           <li v-for="item in crewData.attributes.social.social" :key="item">
             <a :href="item.url">
@@ -35,20 +33,42 @@
           </li>
         </ul>
       </div>
-      <div class="grow h-48">
+      <div class="grow h-full overflow-y-auto overflow-x-clip">
         <h2
           class="text-2xl font-semibold group-hover:text-red-500 group-hover:translate-x-3 duration-300"
         >
           {{ crewData.attributes.name }}
         </h2>
-        <p class="text-sm">{{ crewData.attributes.introduction }}</p>
+        <div class="relative h-full">
+          <p class="text-sm text-front">
+            {{ crewData.attributes.introduction }}
+          </p>
+          <div
+            class="text-back py-2 absolute top-0 left-0 w-full h-full duration-300 overflow-hidden block md:hidden"
+          >
+            <div
+              class="w-full flex overflow-y-auto overflow-x-hidden duration-300 ease-in-out"
+            >
+              <ul
+                class="w-full flex flex-wrap flex-none content-start gap-2 pb-1"
+              >
+                <li v-for="role in crewData.attributes.roles.roles" :key="role">
+                  <span
+                    class="text-xs px-2 py-1 border border-red-500 text-red-500"
+                    >{{ role }}</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="duration-300 overflow-hidden">
+    <div class="duration-300 overflow-hidden hidden md:block">
       <div
         class="w-full flex overflow-y-auto overflow-x-hidden duration-300 ease-in-out"
       >
-        <ul class="w-full flex flex-wrap flex-none content-start gap-2 py-2">
+        <ul class="w-full flex flex-wrap flex-none content-start gap-2 pb-1">
           <li v-for="role in crewData.attributes.roles.roles" :key="role">
             <span
               class="text-xs px-2 py-1 border border-red-500 text-red-500"
@@ -110,25 +130,39 @@ export default {
 </script>
 <style>
 .img-wrapper {
-  transform-style: preserve-3d;
-}
-
-.img-front {
-  transform: translateZ(3rem);
-}
-.img-back {
+  position: relative;
 }
 
 .img-back {
-  transform: rotateY(90deg) translateZ(3rem);
+  transform: translateX(-100%);
 }
 
-.img-wrapper.flipped {
-  transform: rotateY(-90deg);
-}
+.flipped .img-front {
+    transform: translateX(-100%);
+    transition-property: transform;
+    transition-duration: 300ms;
+  }
+
+  .flipped .img-back {
+    transform: translate(0);
+  }
 
 .social-icon-filter {
   filter: invert(33%) sepia(85%) saturate(1693%) hue-rotate(339deg)
     brightness(105%) contrast(88%);
+}
+
+@media (max-width: 768px) {
+  .text-back {
+    opacity: 0;
+  }
+
+  .flipped .text-front {
+    opacity: 0;
+  }
+
+  .flipped .text-back {
+    opacity: 1;
+  }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <header
-    class="fixed w-screen md:w-[calc(1024px*2/3)] top-0 left-0 md:left-[calc(50vw-512px)] px-4 py-2 md:px-2 z-40 border-b-2 border-transparent duration-500 ease-in-out"
+    class="fixed w-screen md:w-2/3 lg:w-[calc(1024px*2/3)] top-0 left-0 md:left-0 lg:left-[calc(50vw-512px)] px-4 py-2 z-40 border-b-2 border-transparent duration-500 ease-in-out"
     :class="{ scrolled: sidebarOpened || isScrolled }"
   >
     <div class="flex items-center">
