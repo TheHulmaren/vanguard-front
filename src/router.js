@@ -4,11 +4,13 @@ import HomeView from "./components/views/HomeView.vue";
 import CrewsView from "./components/views/CrewsView.vue";
 import PortfolioListView from "./components/views/PortfolioListView.vue";
 import PortfolioDetail from "./components/views/PortfolioDetail.vue";
+import ContactView from './components/views/ContactView.vue'
 
 const subtitleTable={
   '/': 'Home',
   "/our-crews": 'Our Crews',
   '/our-portfolios': 'Our Portfolios',
+  '/contact-us': 'Contact Us'
 }
 
 const routes = [
@@ -27,6 +29,10 @@ const routes = [
   {
     path: "/our-portfolios/:id",
     component: PortfolioDetail,
+  },
+  {
+    path: "/contact-us",
+    component: ContactView,
   },
 ];
 

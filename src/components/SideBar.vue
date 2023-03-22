@@ -42,6 +42,9 @@
         <a href="/our-crews">
           <h3 class="text-2xl font-semibold">CREWS</h3>
         </a>
+        <a href="/contact-us">
+          <h3 class="text-2xl font-semibold">CONTACT</h3>
+        </a>
       </nav>
 
       <div class="flex flex-col items-start gap-1">
