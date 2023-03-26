@@ -1,9 +1,9 @@
 <template>
   <div class="">
     <form class="flex flex-col" id="contactForm">
-      <label for="authorInput">Name</label>
+      <label for="authorInput">{{ $t("contact.form.name") }}</label>
       <input type="text" name="author" id="authorInput" />
-      <label for="typeSelect">Contact Type</label>
+      <label for="typeSelect">{{ $t("contact.form.contactType") }}</label>
       <select name="type" id="typeSelect">
         <option value="development">Development</option>
         <option value="business">Business</option>
@@ -11,34 +11,35 @@
         <option value="question">Questions</option>
         <option value="etc">Etc</option>
       </select>
-      <label for="emailInput">Your Email (necessary)</label>
+      <label for="emailInput">{{ $t("contact.form.yourEmail") }}</label>
       <input type="email" name="email" id="emailInput" />
-      <label for="phoneInput">Your Phone</label>
+      <label for="phoneInput">{{ $t("contact.form.yourPhone") }}</label>
       <input type="tel" name="phone" id="phoneInput" />
-      <label for="descInput">Description</label>
+      <label for="descInput">{{ $t("contact.form.description") }}</label>
       <textarea name="description" id="descInput" />
-      <label for="attachInput">Attachments</label>
+      <label for="attachInput">{{ $t("contact.form.attachments") }}</label>
       <input type="file" name="attachment" id="attachInput" multiple />
       <p class="text-red-700 mb-4" :class="{ hidden: !errorOccured }">
-        Error! Be sure to check the internet connection and to fill in the Email
-        field, and try again.
+        {{ $t("contact.transfer.error") }}
       </p>
       <span
         class="mx-auto text-red-500 text-lg decoration-red-500 mb-4"
         :class="{ hidden: !transferring }"
-        >Transferring...</span
+      >
+        {{ $t("contact.transfer.transferring") }}</span
       >
       <button
         type="submit"
         class="mx-auto border border-red-500 text-red-500 hover:bg-red-500 hover:text-[#1a1a1a] w-fit px-6 py-1 text-md duration-200 ease-in-out"
         :class="{ hidden: transferDone }"
       >
-        Transfer
+        {{ $t("contact.form.transfer") }}
       </button>
       <span
         class="mx-auto text-red-500 before:content-['■_'] underline decoration-red-500 text-lg"
         :class="{ hidden: !transferDone }"
-        >Transfered successfully!</span
+      >
+        {{ $t("contact.transfer.success") }}</span
       >
     </form>
   </div>
@@ -139,7 +140,7 @@ export default {
   resize: none;
 }
 
-#contactForm > input:focus {
+#contactForm > :is(input, textarea, select):focus {
   border-color: #ef4444;
 }
 

@@ -8,7 +8,7 @@
         ><h1
           class="text-3xl md:text-6xl font-bold my-3 duration-300 ease-in-out"
         >
-          VANGUARD
+          {{ $t("header.title") }}
         </h1>
       </a>
       <div class="grow"></div>

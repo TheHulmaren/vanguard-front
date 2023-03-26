@@ -12,10 +12,18 @@
           id="introButtonOverlay"
           class="absolute top-0 left-0 duration-300 opacity-0"
         >
-          <div class="absolute top-0 -left-2 md:-left-3 h-3 bg-red-500 w-[1px]"></div>
-          <div class="absolute top-0 -left-2 md:-left-3 w-3 bg-red-500 h-[1px]"></div>
-          <div class="absolute bottom-0 -right-2 md:-right-3 h-3 bg-red-500 w-[1px]"></div>
-          <div class="absolute bottom-0 -right-2 md:-right-3 w-3 bg-red-500 h-[1px]"></div>
+          <div
+            class="absolute top-0 -left-2 md:-left-3 h-3 bg-red-500 w-[1px]"
+          ></div>
+          <div
+            class="absolute top-0 -left-2 md:-left-3 w-3 bg-red-500 h-[1px]"
+          ></div>
+          <div
+            class="absolute bottom-0 -right-2 md:-right-3 h-3 bg-red-500 w-[1px]"
+          ></div>
+          <div
+            class="absolute bottom-0 -right-2 md:-right-3 w-3 bg-red-500 h-[1px]"
+          ></div>
         </div>
         <IntroButton
           v-for="(item, i) in introContents"
@@ -53,6 +61,7 @@
   </div>
 </template>
 <script>
+import { i18n } from "@/localization";
 import IntroButton from "../IntroButton.vue";
 
 export default {
@@ -65,23 +74,20 @@ export default {
     return {
       introContents: [
         {
-          buttonText: "Commitment",
-          content:
-            "We commit to providing an *unparalleled* web experience for every customer, ensuring *satisfaction* and *success*.",
+          buttonText: i18n.global.t("home.commitment.button"),
+          content: i18n.global.t("home.commitment.content"),
         },
         {
-          buttonText: "Just for You",
-          content:
-            "Crafting *tailor-made websites* that seamlessly align with your business's *unique characteristics*, *strategic direction*, and *core values*.",
+          buttonText: i18n.global.t("home.justForYou.button"),
+          content: i18n.global.t("home.justForYou.content"),
         },
         {
-          buttonText: "SEO",
-          content: "Unlock your website's full potential with our *expert SEO strategies*, elevating your online presence.",
+          buttonText: i18n.global.t("home.seo.button"),
+          content: i18n.global.t("home.seo.content"),
         },
         {
-          buttonText: "Design",
-          content:
-            "Continually *innovating* with original designs and layouts through relentless *exploration* and *experimentation*.",
+          buttonText: i18n.global.t("home.innovation.button"),
+          content: i18n.global.t("home.innovation.content"),
         },
       ],
       decoBarStatus: [
@@ -174,7 +180,7 @@ export default {
     },
   },
   mounted() {
-    this.initText()
+    this.initText();
   },
 };
 </script>

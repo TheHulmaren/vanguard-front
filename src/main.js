@@ -6,9 +6,11 @@ import axios from "axios";
 
 import "./assets/css/output.css";
 
-const app = createApp(App)
+const app = createApp(App);
 
 app.config.globalProperties.$axios = axios;
 app.config.globalProperties.$env = process.env;
 
-app.use(router).mount("#app");
+import { i18n } from "./localization.js";
+
+app.use(router).use(i18n).mount("#app");
