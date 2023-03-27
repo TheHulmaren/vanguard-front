@@ -97,14 +97,19 @@
       </div>
       <div class="flex flex-col">
         <label for="langSelect">언어 선택</label>
-        <select id="langSelect" v-model="$i18n.locale" class="bg-[#1a1a1a] border border-[#1a1a1a] focus:border-red-500 px-4 py-1 outline-0 duration-200 ease-in-out">
+        <select
+          id="langSelect"
+          @change="onLocaleSelected($event)"
+          class="bg-[#1a1a1a] border border-[#1a1a1a] focus:border-red-500 px-4 py-1 outline-0 duration-200 ease-in-out"
+        >
           <option
             v-for="locale in $i18n.availableLocales"
             :key="`locale-${locale}`"
             :value="locale"
             class="bg-[#1a1a1a]"
+            :selected="locale === currentLocale"
           >
-            {{ locale }}
+            {{ localeToFlag(locale) }}
           </option>
         </select>
       </div>
@@ -113,6 +118,7 @@
   </div>
 </template>
 <script>
+import { i18n } from "@/localization";
 export default {
   name: "SideBar",
   data() {
@@ -120,9 +126,23 @@ export default {
       subscriptionDone: false,
       subscriptionFailed: false,
       validated: false,
+      currentLocale: i18n.global.locale,
     };
   },
   methods: {
+    localeToFlag(locale) {
+      let flagTable = {
+        ko: "🇰🇷 한국어",
+        en: "🇬🇧 English",
+      };
+
+      return flagTable[locale];
+    },
+    onLocaleSelected(e) {
+      let locale = e.target.value;
+      window.localStorage.setItem("locale", locale);
+      window.location.reload();
+    },
     addEmailInputListener() {
       var emailInput = document.getElementById("subscriptionInput");
       var leftLine = document.getElementById("emailInputLabelLeft");

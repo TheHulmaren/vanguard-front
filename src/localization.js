@@ -1,7 +1,7 @@
 import { createI18n } from "vue-i18n";
 
 const messages = {
-  English: {
+    en: {
     header: {
       title: "VANGUARD WEB ART.",
       subtitle: {
@@ -65,7 +65,7 @@ const messages = {
       }
     }
   },
-  한국어: {
+  ko: {
     header: {
       title: "뱅가드 웹 아트.",
       subtitle: {
@@ -132,7 +132,7 @@ const messages = {
 };
 
 export const i18n = createI18n({
-  locale: "한국어",
-  fallbackLocale: "English",
+  locale: window.localStorage.getItem('locale') || "ko",
+  fallbackLocale: "en",
   messages: messages,
 });

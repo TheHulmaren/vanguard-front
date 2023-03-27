@@ -9,6 +9,7 @@
 </template>
 <script>
 import CrewCard from "../CrewCard.vue";
+import { i18n } from "@/localization";
 
 export default {
   name: "CrewsView",
@@ -27,7 +28,7 @@ export default {
       this.fetching = true;
       try {
         let fetched = await this.$axios.get(
-          `${this.$env.VUE_APP_DB_HOST}/api/crews?populate=profImg`
+          `${this.$env.VUE_APP_DB_HOST}/api/crews?populate=profImg&locale=${i18n.global.locale}`
         );
         this.crews = fetched.data.data;
         this.onFetchSuccess();
