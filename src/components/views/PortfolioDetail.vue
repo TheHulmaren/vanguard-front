@@ -12,7 +12,7 @@
         >
           <img
             class="w-full h-full object-contain"
-            :src="img.attributes.formats.large.url"
+            :src="img.attributes.formats.medium.url"
           />
         </li>
       </ul>

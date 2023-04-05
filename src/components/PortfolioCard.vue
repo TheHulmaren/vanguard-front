@@ -4,7 +4,7 @@
     class="border border-transparent hover:border-red-500 flex duration-300 p-2 gap-4 group items-center"
   >
     <img
-      :src="pf.attributes.thumbnail.data.attributes.formats.medium.url"
+      :src="pf.attributes.thumbnail.data.attributes.formats.small.url"
       class="h-12 md:h-20 aspect-[4/3] object-cover border-[#d9d9d9] border"
     />
     <div class="grow flex flex-col justify-between py-1 gap-1">
