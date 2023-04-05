@@ -55,7 +55,8 @@ const messages = {
         home:'HOME',
         portfolio:'PORTFOLIOS',
         crews: 'CREWS',
-        contact: 'CONTACT US'
+        contact: 'CONTACT US',
+        chatbot: 'Try using Q&A Bot'
       },
       subscription:{
         label: 'Keep In Touch With Us',
@@ -119,7 +120,8 @@ const messages = {
         home:'홈',
         portfolio:'포트폴리오',
         crews: '크루',
-        contact: '문의하기'
+        contact: '문의하기',
+        chatbot: 'Q&A 봇 사용해보기'
       },
       subscription:{
         label: '저희 소식을 메일로 받아보세요!',

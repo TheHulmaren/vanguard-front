@@ -49,6 +49,11 @@
             {{ $t("sidebar.nav.contact") }}
           </h3>
         </a>
+        <a href="https://rococo-pixie-1e1b18.netlify.app/">
+          <h3 class="text-xl font-semibold border border-[#ef4444]">
+            [Beta] {{ $t("sidebar.nav.chatbot") }}
+          </h3>
+        </a>
       </nav>
       <div
         class="flex flex-col items-start gap-1"
